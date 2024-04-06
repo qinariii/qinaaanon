@@ -1,7 +1,7 @@
 const { makeWASocket, useMultiFileAuthState, } = require('@whiskeysockets/baileys')
 const pino = require('pino')
 
-ansync function connectWhatsapp() {
+async function connectWhatsapp() {
     const auth = await useMultiFileAuthState("sessions");
     const socket = makeWASocket({
         printQRInTerminal: true,
@@ -21,7 +21,7 @@ ansync function connectWhatsapp() {
 
     socket.ev.on("messages.upsert", async ({ messages,type }) => {
         const chat = messages[0]
-        const pesan = ( chat.message?.extendedTextMessage?.text ?? chat.message?.emphemeralMessage?.message?.extendedTextMessage?.txt ??chat.message?.conversation)?toLowerCase() || "";
+        const pesan = ( chat.message?.extendedTextMessage?.text ?? chat.message?.ephemeralMessage?.message?.extendedTextMessage?.text ??chat.message?.conversation)?.toLowerCase() || "";
 
         if (pesan == '.ping') {
             await socket.sendMessage(chat.key.remotedJid { text: "Hello."}, { quoted: chat})
