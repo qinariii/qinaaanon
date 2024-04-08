@@ -1,5 +1,8 @@
 const { makeWASocket, useMultiFileAuthState, } = require('@whiskeysockets/baileys')
+const chalk = require('chalk')
+const moment = require('moment')
 const pino = require('pino')
+const { queue, active_sessions } = require("src/database")
 
 async function connectWhatsapp() {
     const auth = await useMultiFileAuthState("sessions");
